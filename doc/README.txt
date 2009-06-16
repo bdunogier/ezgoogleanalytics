@@ -67,3 +67,54 @@ this way::
 	?>
 
 The classes used by the extension are documented using the PHPDoc format.
+
+Pagedata script
+===============
+
+This script is the first "real world" feature implemented by this extension.
+It is built on a script (bin/php/pagedata.php) and a fetch function.
+
+Setup
+-----
+This script uses custom tables. Their definition can be found in doc/pagedata.sql::
+	mysql -u<user> -p<pass> <database> < extension/ezgoogleanalytics/doc/pagedata.sql
+
+The script
+----------
+
+Usage: php bin/php/ezexec.php extension/ezgoogleanalytics/bin/php/pagedata.php
+
+This script will fetch from google analytics statistics about your website pages.
+The statistics will start from the date TrackerSettings.StartDate that can be
+configured in googleanalytics.ini. URIs will be resolved to node IDs if possible.
+If an URI can not be resolved, statistics for the URL will be recorded.
+
+The first time it is executed, it will build a database table (ezgoogleanalytics_pagedata_total)
+featuring access statistics for every URL.
+Each time the script is ran again, it will gather statistics for the current day,
+and will aggregate these with the total when a new day starts.
+
+You can for instance execute it every hour, or even less, since analytics data
+are recorded in real time when using the API.
+
+These statistics can then be used from your templates using the pagedata fetch
+function implemented in the googleanalytics module
+
+The fetch function
+------------------
+
+Usage: {def $pagedata=fetch( googleanalytics, pagedata, hash( node_id, $module_result.node_id ) )}
+
+Returns an array with several keys for the given node:
+ * pageviews
+ * uniquepageviews
+ * entrances
+ * exits
+ * bounces
+ * timeonpage
+ * newvisits
+
+The function can be used with 3 different parameters:
+ * node: an ezcontentobjecttreenode
+ * node_id: a Node ID
+ * url: a raw URL, relative to the site root
