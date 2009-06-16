@@ -1,0 +1,19 @@
+====
+TODO
+====
+
+Tracking code generator
+=======================
+Add a template operator that generates the tracking code based on settings.
+
+Automatic query transformation
+==============================
+Make it possible to transform some URLs automatically.
+Example:
+
+ * /babelfish/translate_url_content?.intl=us&lp=fr_en&trurl=http://blog.ankh-morpork.net/2007/12/30/recepteur-infrarouge-pour-pc-via-le-dongle-dvd-xbox/
+   => /2007/12/30/recepteur-infrarouge-pour-pc-via-le-dongle-dvd-xbox/
+ * /translate_c?hl=en&ie=UTF8&langpair=de|en&u=http://blog.ankh-morpork.net/2009/05/23/gearman-application-n-tier-en-php/&rurl=translate.google.com&usg=ALkJrhga_p8Lljo7HPPvzNWnVcElW5ETxw
+   => /2009/05/23/gearman-application-n-tier-en-php/
+
+Could be partially useless as analytics can already transform these, but... well.
