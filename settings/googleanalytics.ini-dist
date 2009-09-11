@@ -14,5 +14,7 @@ StartDate=YYYY-MM-DD
 # The username & password of a google account that has access to the TrackerID above
 Username=your.username@gmail.com
 Password=yourpassword
+GoogleAdminInterfaceID=XXXXXXX
+GoogleAdminInterfaceURL=https://www.google.com/analytics/reporting/?reset=1&id=
 
 */ ?>

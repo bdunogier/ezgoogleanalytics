@@ -8,6 +8,8 @@ Features
  * Binds these classes to eZ publish INI settings
  * Template operator that analytics tracking code to your templates. Both
    legacy (urchin) and new (ga) trackers are supported
+ * Administration interface in the backoffice
+ * Settings of configuration parameters in the backoffice
 
 Installation
 ============
@@ -30,41 +32,41 @@ analytics tracking code to your HTML.
 
 It usually has to be placed right before the </body> tag of your pagelayout.tpl::
 
-	{googleanalytics_tracker()}
-	</body>
+    {googleanalytics_tracker()}
+    </body>
 
 API
 ---
 The gdata API is currently the main feature of this extension. It can be used
 this way::
 
-	<?php
-	// instanciante the analytics class.
-	// Authentication is performed automatically based on your INI settings
-	try {
-		$analytics = new eZGoogleAnalytics();
-	} catch( Exception $e ) {
-		eZDebug::writeError( "Fatal analytics error: " . $e->getMessage() );
-	}
+    <?php
+    // instanciante the analytics class.
+    // Authentication is performed automatically based on your INI settings
+    try {
+        $analytics = new eZGoogleAnalytics();
+    } catch( Exception $e ) {
+        eZDebug::writeError( "Fatal analytics error: " . $e->getMessage() );
+    }
 
-	// The GoogleAnalyticsDataRequest class has to be used to create gdata requests
-	try {
-		$request = new GoogleAnalyticsDataRequest();
-		$request->setDimension( 'pagepath' );
-		$request->setMetric( 'pageviews' );
-		$request->setStartDate( '2009-05-01' );
-		$request->setEndDate( '2009-05-31' );
+    // The GoogleAnalyticsDataRequest class has to be used to create gdata requests
+    try {
+        $request = new GoogleAnalyticsDataRequest();
+        $request->setDimension( 'pagepath' );
+        $request->setMetric( 'pageviews' );
+        $request->setStartDate( '2009-05-01' );
+        $request->setEndDate( '2009-05-31' );
 
-		$data = $analytics->getData( $request );
-	} catch( Exception $e ) {
-		eZDebug::writeError( "Analytics data request error: " . $e->getMessage() );
-	}
+        $data = $analytics->getData( $request );
+    } catch( Exception $e ) {
+        eZDebug::writeError( "Analytics data request error: " . $e->getMessage() );
+    }
 
-	foreach( $data as $record )
-	{
-		echo $record['dimension']['pagepath'] . ': ' . $record['metrics']['pageviews'] . "\n";
-	}
-	?>
+    foreach( $data as $record )
+    {
+        echo $record['dimension']['pagepath'] . ': ' . $record['metrics']['pageviews'] . "\n";
+    }
+    ?>
 
 The classes used by the extension are documented using the PHPDoc format.
 
@@ -77,7 +79,7 @@ It is built on a script (bin/php/pagedata.php) and a fetch function.
 Setup
 -----
 This script uses custom tables. Their definition can be found in doc/pagedata.sql::
-	mysql -u<user> -p<pass> <database> < extension/ezgoogleanalytics/doc/pagedata.sql
+    mysql -u<user> -p<pass> <database> < extension/ezgoogleanalytics/doc/pagedata.sql
 
 The script
 ----------
